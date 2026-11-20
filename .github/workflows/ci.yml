@@ -1,0 +1,48 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install
+        run: pip install -e ".[eval,dev,infra]"
+      - name: Unit, agent, AWS contract and CDK tests
+        run: python -m pytest
+
+  evaluate:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install
+        run: pip install -e ".[eval]"
+      - name: Download the regulations from eCFR (Regs B, E, P, DD, CC)
+        run: python -m regqa.corpus.ecfr --out data/corpus.jsonl
+      - name: Evaluate on 50 questions (offline pipeline, no AWS)
+        run: python eval/run_eval.py
+      - name: Demo answers
+        run: python eval/demo.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: corpus-and-eval
+          path: |
+            data/corpus.jsonl
+            eval/results/
