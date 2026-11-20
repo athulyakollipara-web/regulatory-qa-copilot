@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TEST FIXTURE ONLY. "Part 9999 - Example Regulation" is invented for unit tests.
+     It mimics the shape of eCFR full-XML (DIV5 part, DIV8 sections, HEAD, P) and is
+     not real law. The real corpus is downloaded by regqa.corpus.ecfr. -->
+<ECFR>
+<DIV5 N="9999" TYPE="PART">
+<HEAD>PART 9999—EXAMPLE REGULATION (TEST FIXTURE)</HEAD>
+<DIV8 N="9999.1" TYPE="SECTION">
+<HEAD>§ 9999.1 Purpose and scope.</HEAD>
+<P>(a) <I>Purpose.</I> This part sets out example rules for test deposit accounts held at an example bank.</P>
+<P>(b) <I>Scope.</I> This part applies to every example bank that offers test deposit accounts to consumers.</P>
+</DIV8>
+<DIV8 N="9999.2" TYPE="SECTION">
+<HEAD>§ 9999.2 Notice of unauthorized withdrawals.</HEAD>
+<P>(a) <I>Consumer notice.</I> A consumer must notify the example bank of an unauthorized withdrawal within 60 days after the statement is sent.</P>
+<P>(b) <I>Liability limits.</I> (1) If the consumer gives notice within 2 business days, the consumer's liability shall not exceed $50.</P>
+<P>(2) If the consumer gives notice after 2 business days, the consumer's liability shall not exceed $500.</P>
+<P>(i) This limit applies only to withdrawals made with a lost access card.</P>
+<P>(ii) The example bank must explain the limit in its initial disclosure.</P>
+<P>(c) <I>Investigation.</I> The example bank shall investigate a notice and report the result within 10 business days.</P>
+</DIV8>
+<DIV8 N="9999.3" TYPE="SECTION">
+<HEAD>§ 9999.3 Availability of deposited funds.</HEAD>
+<P>(a) <I>Cash deposits.</I> Cash deposited in person shall be available for withdrawal not later than the business day after the banking day of deposit.</P>
+<P>(b) <I>Large deposits.</I> The example bank may extend a hold on the amount of deposits exceeding $5,000 on any one banking day, and must send a hold notice explaining the reason.</P>
+<P>(h) <I>Records.</I> The example bank shall keep records of holds for 2 years.</P>
+<P>(i) <I>Interest.</I> Interest begins to accrue not later than the business day on which the bank receives credit for the funds.</P>
+</DIV8>
+<DIV8 N="9999.4" TYPE="SECTION">
+<HEAD>§ 9999.4 [Reserved]</HEAD>
+<P>[Reserved]</P>
+</DIV8>
+<DIV8 N="9999.5" TYPE="SECTION">
+<HEAD>§ 9999.5 Privacy notices.</HEAD>
+<P>(a) <I>Initial notice.</I> An example bank must give a consumer a clear privacy notice not later than when the customer relationship is established.</P>
+<P>(b) <I>Opt out.</I> A consumer may opt out of sharing with nonaffiliated third parties by calling a toll-free number.</P>
+</DIV8>
+</DIV5>
+</ECFR>

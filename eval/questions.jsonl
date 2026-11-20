@@ -1,0 +1,50 @@
+{"id": "e01", "reg": "E", "question": "How much can a consumer be liable for if their debit card is stolen and they tell the bank within two business days?", "gold": ["1005.6"]}
+{"id": "e02", "reg": "E", "question": "How long does a financial institution have to investigate an electronic fund transfer error?", "gold": ["1005.11"]}
+{"id": "e03", "reg": "E", "question": "How many days does a consumer have to report an error that appears on their periodic statement?", "gold": ["1005.11"]}
+{"id": "e04", "reg": "E", "question": "Can a bank charge overdraft fees on ATM withdrawals and one-time debit card purchases if the customer never opted in?", "gold": ["1005.17"]}
+{"id": "e05", "reg": "E", "question": "What disclosures must a bank give before a consumer's first electronic fund transfer?", "gold": ["1005.7"]}
+{"id": "e06", "reg": "E", "question": "What information must a periodic statement show for an account that receives electronic fund transfers?", "gold": ["1005.9"]}
+{"id": "e07", "reg": "E", "question": "Can a bank send a debit card to someone who did not ask for one?", "gold": ["1005.5"]}
+{"id": "e08", "reg": "E", "question": "How can a consumer stop payment of a preauthorized recurring transfer from their account?", "gold": ["1005.10"]}
+{"id": "e09", "reg": "E", "question": "How long does a sender have to cancel an international remittance transfer and get a refund?", "gold": ["1005.34"]}
+{"id": "e10", "reg": "E", "question": "What fee notice must an ATM operator show before charging a fee for a withdrawal?", "gold": ["1005.16"]}
+{"id": "b01", "reg": "B", "question": "How many days does a lender have to tell an applicant what happened to a completed credit application?", "gold": ["1002.9"]}
+{"id": "b02", "reg": "B", "question": "What must be included in a notice when a loan application is denied?", "gold": ["1002.9"]}
+{"id": "b03", "reg": "B", "question": "Is a creditor allowed to ask about an applicant's marital status?", "gold": ["1002.5"]}
+{"id": "b04", "reg": "B", "question": "Can a lender refuse to count income from public assistance when evaluating an application?", "gold": ["1002.6"]}
+{"id": "b05", "reg": "B", "question": "When must a creditor give the applicant a copy of the appraisal for a home loan?", "gold": ["1002.14"]}
+{"id": "b06", "reg": "B", "question": "How long must a creditor keep records related to a consumer credit application?", "gold": ["1002.12"]}
+{"id": "b07", "reg": "B", "question": "What ethnicity, race and sex information is collected for government monitoring on mortgage applications?", "gold": ["1002.13"]}
+{"id": "b08", "reg": "B", "question": "Can a creditor require the applicant's spouse to sign the loan agreement?", "gold": ["1002.7"]}
+{"id": "p01", "reg": "P", "question": "When does a bank have to give a new customer its initial privacy notice?", "gold": ["1016.4"]}
+{"id": "p02", "reg": "P", "question": "Does a bank have to send customers a privacy notice every year?", "gold": ["1016.5"]}
+{"id": "p03", "reg": "P", "question": "What information has to be included in a privacy notice?", "gold": ["1016.6"]}
+{"id": "p04", "reg": "P", "question": "What are acceptable ways for a consumer to opt out of information sharing?", "gold": ["1016.7"]}
+{"id": "p05", "reg": "P", "question": "Can a bank give customer account numbers to an outside company for telemarketing?", "gold": ["1016.12"]}
+{"id": "p06", "reg": "P", "question": "What limits apply when a company reuses personal information it received from a bank?", "gold": ["1016.11"]}
+{"id": "p07", "reg": "P", "question": "Is an opt-out required before sharing information with a service provider that markets the bank's own products?", "gold": ["1016.13"]}
+{"id": "d01", "reg": "DD", "question": "What must a deposit account disclosure include under Truth in Savings?", "gold": ["1030.4"]}
+{"id": "d02", "reg": "DD", "question": "How much advance notice must a bank give before changing a term that hurts the account holder?", "gold": ["1030.5"]}
+{"id": "d03", "reg": "DD", "question": "How must periodic statements show the total overdraft fees charged?", "gold": ["1030.11"]}
+{"id": "d04", "reg": "DD", "question": "What rules apply when a bank advertises the interest rate on a savings account?", "gold": ["1030.8"]}
+{"id": "d05", "reg": "DD", "question": "On what balance must a bank calculate interest on a deposit account?", "gold": ["1030.7"]}
+{"id": "d06", "reg": "DD", "question": "What notice is required before a certificate of deposit that renews automatically matures?", "gold": ["1030.5"]}
+{"id": "c01", "reg": "CC", "question": "When must funds from a cash deposit be made available?", "gold": ["229.10"]}
+{"id": "c02", "reg": "CC", "question": "What is the maximum hold a bank can place on a deposited local check?", "gold": ["229.12"]}
+{"id": "c03", "reg": "CC", "question": "When can a bank put a longer hold on a large check deposit?", "gold": ["229.13"]}
+{"id": "c04", "reg": "CC", "question": "What must a bank's funds availability policy disclosure contain?", "gold": ["229.16"]}
+{"id": "c05", "reg": "CC", "question": "When does interest start to accrue on a deposited check in an interest-bearing account?", "gold": ["229.14"]}
+{"id": "c06", "reg": "CC", "question": "What notice must a bank give when it applies an exception hold to a deposit?", "gold": ["229.13"]}
+{"id": "c07", "reg": "CC", "question": "Does a bank have to post its availability policy where employees accept deposits?", "gold": ["229.18"]}
+{"id": "c08", "reg": "CC", "question": "When is a substitute check the legal equivalent of the original check?", "gold": ["229.51"]}
+{"id": "c09", "reg": "CC", "question": "What expedited recredit rights does a consumer have for a substitute check?", "gold": ["229.54"]}
+{"id": "n01", "reg": "none", "question": "What is the capital gains tax rate on cryptocurrency?", "gold": []}
+{"id": "n02", "reg": "none", "question": "What margin is required to trade stock options?", "gold": []}
+{"id": "n03", "reg": "none", "question": "What is the minimum credit score for an FHA mortgage?", "gold": []}
+{"id": "n04", "reg": "none", "question": "When are quarterly 10-Q reports due to the SEC?", "gold": []}
+{"id": "n05", "reg": "none", "question": "What is the federal minimum wage?", "gold": []}
+{"id": "n06", "reg": "none", "question": "What does HIPAA require for storing patient records?", "gold": []}
+{"id": "n07", "reg": "none", "question": "What is the Basel III leverage ratio requirement for large banks?", "gold": []}
+{"id": "n08", "reg": "none", "question": "How do I file a complaint against a broker with FINRA?", "gold": []}
+{"id": "n09", "reg": "none", "question": "What is the 401(k) contribution limit this year?", "gold": []}
+{"id": "n10", "reg": "none", "question": "How much FDIC insurance covers a joint account?", "gold": []}

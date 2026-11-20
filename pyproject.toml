@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "regulatory-qa-copilot"
+version = "1.0.0"
+description = "Cited answers to US banking regulation questions: eCFR corpus, hybrid retrieval + reranking, citation-checked generation and Bedrock Guardrails grounding."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Athulya Kollipara" }]
+dependencies = ["langgraph>=0.4", "boto3>=1.35", "fastapi>=0.110", "uvicorn>=0.29"]
+
+[project.optional-dependencies]
+eval = ["mlflow>=2.14"]
+aws = ["opensearch-py>=2.4", "requests>=2.31"]
+infra = ["aws-cdk-lib>=2.150", "constructs>=10"]
+dev = ["pytest>=8", "httpx>=0.27"]
+
+[project.scripts]
+regqa = "regqa.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["regqa*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning", "ignore::FutureWarning"]

@@ -1,0 +1,6 @@
+# AWS Lambda image. The corpus is copied from S3 on cold start (CORPUS_S3_URI).
+FROM public.ecr.aws/lambda/python:3.12
+COPY pyproject.toml README.md ${LAMBDA_TASK_ROOT}/
+COPY regqa ${LAMBDA_TASK_ROOT}/regqa
+RUN pip install --no-cache-dir "${LAMBDA_TASK_ROOT}" --target "${LAMBDA_TASK_ROOT}"
+CMD ["regqa.lambda_handler.handler"]
