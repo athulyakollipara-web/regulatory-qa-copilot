@@ -32,3 +32,38 @@ def test_chunks_group_by_top_level_paragraph(sections):
 def test_save_and_load_roundtrip(sections, tmp_path):
     save(sections, tmp_path / "c.jsonl")
     assert load(tmp_path / "c.jsonl") == sections
+
+
+def test_ecfr_download_requests_and_decodes_gzip(monkeypatch):
+    """eCFR answers HTTP 406 unless the request accepts a compressed response."""
+    import gzip
+    import urllib.request
+
+    from regqa.corpus import ecfr
+
+    payload = b"<ECFR/>"
+    seen = {}
+
+    class Resp:
+        def __init__(self, body, enc):
+            self.body, self.headers = body, ({"Content-Encoding": enc} if enc else {})
+
+        def read(self):
+            return self.body
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *exc):
+            return False
+
+    def fake_open(req, timeout):
+        seen["accept_encoding"] = req.get_header("Accept-encoding")
+        return Resp(gzip.compress(payload), "gzip")
+
+    monkeypatch.setattr(urllib.request, "urlopen", fake_open)
+    assert ecfr._get("https://www.ecfr.gov/api/versioner/v1/titles.json") == payload
+    assert seen["accept_encoding"] == "gzip"
+
+    monkeypatch.setattr(urllib.request, "urlopen", lambda req, timeout: Resp(payload, None))
+    assert ecfr._get("https://www.ecfr.gov/x") == payload  # an uncompressed reply still works
