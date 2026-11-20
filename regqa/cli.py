@@ -23,7 +23,9 @@ def main(argv: list[str] | None = None) -> int:
 
     r = build_runtime().ask(args.question)
     print("\nANSWER  (" + str(r["mode"]) + ")")
-    print(textwrap.fill(r["answer"], 100, initial_indent="  ", subsequent_indent="  "))
+    # Non-breaking space keeps each citation like "[§ 1005.6(b)(1)]" on one line.
+    wrapped = textwrap.fill(r["answer"].replace("[§ ", "[§\u00a0"), 100, initial_indent="  ", subsequent_indent="  ")
+    print(wrapped.replace("\u00a0", " "))
     if r["found"]:
         print("\nSOURCES")
         for s in r["sources"][:3]:

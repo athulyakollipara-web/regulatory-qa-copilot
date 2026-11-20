@@ -1,0 +1,20 @@
+{"id": "dv01", "reg": "E", "question": "What information has to be printed on an ATM receipt?", "gold": ["1005.9"]}
+{"id": "dv02", "reg": "E", "question": "Must the bank warn me before a recurring debit changes in amount?", "gold": ["1005.10"]}
+{"id": "dv03", "reg": "E", "question": "Can an employer require employees to receive pay by direct deposit at a specific bank?", "gold": ["1005.10"]}
+{"id": "dv04", "reg": "E", "question": "What must a remittance provider disclose to the sender before payment?", "gold": ["1005.31"]}
+{"id": "dv05", "reg": "E", "question": "How long must evidence of compliance with Regulation E be kept?", "gold": ["1005.13"]}
+{"id": "dv06", "reg": "B", "question": "Can a creditor take an applicant's age into account?", "gold": ["1002.6"]}
+{"id": "dv07", "reg": "B", "question": "Which special purpose credit programs are allowed to consider a protected characteristic?", "gold": ["1002.8"]}
+{"id": "dv08", "reg": "P", "question": "When can a bank disclose customer information to prevent fraud without an opt-out?", "gold": ["1016.15"]}
+{"id": "dv09", "reg": "P", "question": "How must privacy and opt-out notices be delivered to consumers?", "gold": ["1016.9"]}
+{"id": "dv10", "reg": "DD", "question": "Which fees must be listed in a deposit account disclosure?", "gold": ["1030.4"]}
+{"id": "dv11", "reg": "DD", "question": "Can a bank advertise free checking if a maintenance fee may apply?", "gold": ["1030.8"]}
+{"id": "dv12", "reg": "DD", "question": "How long must records of compliance with Truth in Savings be kept?", "gold": ["1030.9"]}
+{"id": "dv13", "reg": "CC", "question": "When must funds from a U.S. Treasury check be available?", "gold": ["229.10"]}
+{"id": "dv14", "reg": "CC", "question": "When is a deposit made at an ATM considered received by the bank?", "gold": ["229.19"]}
+{"id": "dv15", "reg": "CC", "question": "Can a bank place longer holds on deposits into new accounts?", "gold": ["229.13"]}
+{"id": "dv16", "reg": "CC", "question": "What warranties does a bank give when it transfers a substitute check?", "gold": ["229.52"]}
+{"id": "dn01", "reg": "none", "question": "What is the penalty for an early withdrawal from a 401(k)?", "gold": []}
+{"id": "dn02", "reg": "none", "question": "How do I appeal a parking ticket?", "gold": []}
+{"id": "dn03", "reg": "none", "question": "What are the SEC rules on insider trading?", "gold": []}
+{"id": "dn04", "reg": "none", "question": "What is the limit on the mortgage interest tax deduction?", "gold": []}

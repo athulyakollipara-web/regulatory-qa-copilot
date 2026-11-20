@@ -33,7 +33,7 @@ class Settings:
 
 def get_settings() -> Settings:
     reranker = os.getenv("REGQA_RERANKER", "lexical")
-    default_threshold = {"lexical": 0.42, "bedrock": 0.15}.get(reranker, 0.42)
+    default_threshold = {"lexical": 0.50, "bedrock": 0.15}.get(reranker, 0.42)
     rerank_region = os.getenv("RERANK_REGION", "us-west-2")
     return Settings(
         llm=os.getenv("REGQA_LLM", "extractive"),

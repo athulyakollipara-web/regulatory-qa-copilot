@@ -14,6 +14,7 @@ from typing import Protocol
 from regqa.corpus.chunks import Chunk
 from regqa.retrieval.bm25 import BM25
 from regqa.retrieval.embeddings import Embedder, cosine
+from regqa.retrieval.glossary import expand
 from regqa.retrieval.text import tokenize
 
 
@@ -89,6 +90,8 @@ class HybridRetriever:
         self.rrf_k = rrf_k
         texts = [c.search_text for c in chunks]
         self.bm25 = BM25(texts)
+        # Headings are short and written in the regulation's own vocabulary, so they get their own ranking.
+        self.heading_bm25 = BM25([f"{c.regulation} {c.heading}" for c in chunks])
         self.vectors = embedder.embed(texts)
 
     def _rank(self, scores: list[float], n: int) -> list[int]:
@@ -96,12 +99,14 @@ class HybridRetriever:
         return [i for i in order[:n] if scores[i] > 0]
 
     def candidates(self, query: str, n: int = 30) -> list[Hit]:
+        query = expand(query)
         lexical = self._rank(self.bm25.scores(query), n)
+        headings = self._rank(self.heading_bm25.scores(query), n)
         qv = self.embedder.embed([query])[0]
         semantic = self._rank([cosine(qv, v) for v in self.vectors], n)
         fused: dict[int, float] = {}
         sources: dict[int, set[str]] = {}
-        for name, ranking in (("bm25", lexical), ("knn", semantic)):
+        for name, ranking in (("bm25", lexical), ("heading", headings), ("knn", semantic)):
             for rank, idx in enumerate(ranking):
                 fused[idx] = fused.get(idx, 0.0) + 1.0 / (self.rrf_k + rank + 1)
                 sources.setdefault(idx, set()).add(name)
@@ -110,4 +115,4 @@ class HybridRetriever:
         return sorted(hits, key=lambda h: h.score, reverse=True)[:n]
 
     def search(self, query: str, k: int = 5, n: int = 30) -> list[Hit]:
-        return self.reranker.rerank(query, self.candidates(query, n), k)
+        return self.reranker.rerank(expand(query), self.candidates(query, n), k)

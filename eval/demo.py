@@ -10,8 +10,7 @@ from regqa.runtime import build_runtime  # noqa: E402
 
 QUESTIONS = [
     "How much can a consumer lose if their debit card is stolen and they tell the bank within two business days?",
-    "Can a bank charge overdraft fees on one-time debit card purchases if the customer never opted in?",
-    "How many days does a lender have to tell an applicant what happened to a completed credit application?",
+    "When must funds from a cash deposit be made available?",
     "What is the capital gains tax rate on cryptocurrency?",
 ]
 

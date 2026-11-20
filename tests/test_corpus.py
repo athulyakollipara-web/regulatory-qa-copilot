@@ -22,6 +22,18 @@ def test_uppercase_level_four():
     assert labels == ["1.1(a)", "1.1(a)(1)", "1.1(a)(1)(i)", "1.1(a)(1)(i)(A)", "1.1(a)(1)(i)(B)", "1.1(a)(1)(ii)"]
 
 
+def test_real_ecfr_patterns_dash_headings_and_letter_i():
+    """Patterns found in the real corpus: headings ending in a dash before the first
+    sub-paragraph (12 CFR 1002.9), and definition lists where (i) is a letter after (h)."""
+    reg_b = ["(a) Notification of action taken, ECOA notice, and statement of specific reasons —(1) When notification is required.",
+             "(i) 30 days after receiving a completed application;", "(ii) 30 days after taking adverse action;",
+             "(2) Content of notification when adverse action is taken."]
+    assert [p.label for p in label_paragraphs("1002.9", reg_b)] == ["1002.9(a)(1)", "1002.9(a)(1)(i)", "1002.9(a)(1)(ii)", "1002.9(a)(2)"]
+    defs = ["(h) Consumer credit means credit extended to a natural person.", "(1) Example.",
+            "(i) Contractually liable means expressly obligated to repay.", "(j) Credit means the right to defer payment."]
+    assert [p.label for p in label_paragraphs("1002.2", defs)][-2:] == ["1002.2(i)", "1002.2(j)"]
+
+
 def test_chunks_group_by_top_level_paragraph(sections):
     chunks = build_chunks(sections)
     b = next(c for c in chunks if c.chunk_id == "9999.2(b)")

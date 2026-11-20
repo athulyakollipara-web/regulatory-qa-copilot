@@ -27,16 +27,19 @@ def answer(question: str, hits: list[Hit], max_sentences: int = 3) -> str:
             for s in _sentences(p.text):
                 clean = _LEAD.sub("", s)
                 overlap = len(q & set(tokenize(clean))) / max(1, len(q))
-                scored.append((overlap - 0.05 * rank, clean, p.label))
+                if clean.rstrip(" .").endswith((":", "—", " or", " and")):
+                    continue  # a list introduction is meaningless without its items
+                scored.append((overlap - 0.05 * rank, clean, p.label, rank))
     scored.sort(key=lambda x: x[0], reverse=True)
     picked, seen = [], set()
     best = scored[0][0] if scored else 0
-    for score, sent, label in scored:
+    for score, sent, label, rank in scored:
         if score <= 0 or score < 0.6 * best or sent in seen:  # keep only sentences close to the best match
             continue
         seen.add(sent)
         sent = sent.rstrip(" ;.") + "."
-        picked.append(f"{sent[0].upper()}{sent[1:]} [§ {label}]")
+        picked.append((rank, f"{sent[0].upper()}{sent[1:]} [§ {label}]"))
         if len(picked) == max_sentences:
             break
-    return " ".join(picked)
+    # Present the best-ranked source first, so the answer reads in order of relevance.
+    return " ".join(text for _, text in sorted(picked, key=lambda x: x[0]))

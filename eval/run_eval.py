@@ -32,7 +32,8 @@ from regqa.runtime import build_runtime  # noqa: E402
 def main() -> int:
     s = get_settings()
     rt = build_runtime(s)
-    items = [json.loads(l) for l in (HERE / "questions.jsonl").read_text().splitlines() if l.strip()]
+    qfile = Path(sys.argv[1]) if len(sys.argv) > 1 else HERE / "questions.jsonl"  # dev_questions.jsonl for tuning
+    items = [json.loads(l) for l in qfile.read_text().splitlines() if l.strip()]
 
     rows = []
     for it in items:
@@ -88,11 +89,12 @@ def main() -> int:
 
     out = HERE / "results"
     out.mkdir(exist_ok=True)
-    tag = f"{s.llm}-{s.reranker}-{s.embeddings}"
+    tag = f"{s.llm}-{s.reranker}-{s.embeddings}" + ("" if qfile.name == "questions.jsonl" else f"-{qfile.stem}")
     (out / f"{tag}.json").write_text(json.dumps({"summary": summary, "sweep": sweep, "rows": rows}, indent=2))
 
     md = [f"## Evaluation: {tag}", "",
-          f"Corpus: {summary['config']['sections']} sections, {summary['config']['chunks']} chunks. 40 answerable + 10 out-of-scope questions.", "",
+          f"Corpus: {summary['config']['sections']} sections, {summary['config']['chunks']} chunks. "
+          f"{len(ans)} answerable + {len(neg)} out-of-scope questions ({qfile.name}).", "",
           "| Metric | Value |", "|---|---|"]
     for k in ("retrieval_recall_at_1", "retrieval_recall_at_5", "answered_rate_on_answerable", "answer_cites_gold_section",
               "citation_check_pass_rate", "correct_refusals_on_out_of_scope", "mean_latency_s"):

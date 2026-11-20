@@ -72,48 +72,67 @@ def latest_date(title: int = TITLE) -> str:
     return entry.get("up_to_date_as_of") or entry["latest_issue_date"]
 
 
-def _level(marker: str, previous: list[str]) -> int:
+_HEADING_THEN_MARKER = re.compile(r"^\s*(?:[^()]{0,160}?(?:\.|—|–|--|-|:))?\s*(?=\()")
+
+
+def _next_letter(letter: str) -> str:
+    return chr(ord(letter) + 1) if len(letter) == 1 and letter.isalpha() else ""
+
+
+def _roman_successor(marker: str) -> str:
+    order = ["i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "xii", "xiii", "xiv", "xv"]
+    return order[order.index(marker) + 1] if marker in order[:-1] else ""
+
+
+def _level(marker: str, stack: list[str], next_marker: str | None) -> int:
     """Nesting level of a paragraph marker: (a)=1, (1)=2, (i)=3, (A)=4.
 
-    Roman numerals collide with letters: "(i)" is both the ninth letter and the
-    first roman numeral. Directly under a level-1 paragraph it is read as a letter;
-    once a numbered level-2 paragraph is open it is read as a roman numeral.
+    "(i)", "(v)" and "(x)" are both letters and roman numerals. In a definitions
+    section, (i) follows (h); under (a)(1) it starts a roman list. When the marker is
+    the letter that follows the open level-1 letter, the next paragraph decides:
+    "(ii)" next means roman, anything else means letter.
     """
     if marker.isdigit():
         return 2
     if marker.isupper():
         return 4
-    if marker in _ROMAN and len(previous) >= 2:
-        return 3
+    if marker in _ROMAN and stack:
+        follows_letter = marker == _next_letter(stack[0])
+        if follows_letter and next_marker != _roman_successor(marker):
+            return 1  # (h) ... (i) ... (j): a letter
+        return 3  # (a)(1) ... (i) (ii): a roman numeral
     return 1
+
+
+def _markers(text: str) -> list[str]:
+    """All markers a paragraph opens with: "(a) Heading —(1) Rule." -> ["a", "1"]."""
+    out, rest = [], text
+    while True:
+        m = _MARKER.match(rest)
+        if not m:
+            return out
+        out.append(m.group(1))
+        rest = rest[m.end():]
+        h = _HEADING_THEN_MARKER.match(rest)
+        if not (h and _MARKER.match(rest[h.end():])):
+            return out
+        rest = rest[h.end():]
 
 
 def label_paragraphs(section: str, texts: list[str]) -> list[Paragraph]:
     """Give every paragraph its full citation label by tracking (a)/(1)/(i)/(A) nesting."""
+    texts = [re.sub(r"\s+", " ", t).strip() for t in texts]
+    texts = [t for t in texts if t]
+    markers = [_markers(t) for t in texts]
     stack: list[str] = []
     out: list[Paragraph] = []
-    for text in texts:
-        text = re.sub(r"\s+", " ", text).strip()
-        if not text:
-            continue
-        # A paragraph can open with several markers at once: "(b) Timing. (1) General rule."
-        consumed = text
-        while True:
-            m = _MARKER.match(consumed)
-            if not m:
-                break
-            marker = m.group(1)
-            lvl = _level(marker, stack)
-            stack = stack[: lvl - 1] + [marker] if len(stack) >= lvl - 1 else stack + [marker]
-            rest = consumed[m.end():]
-            # Only treat the next "(x)" as a nested marker if it follows a short heading ending in a period.
-            nxt = re.match(r"^\s*(?:[^()]{0,80}?\.\s+)?(?=\()", rest)
-            if nxt and _MARKER.match(rest[nxt.end():]):
-                consumed = rest[nxt.end():]
-                continue
-            break
-        label = section + "".join(f"({s})" for s in stack)
-        out.append(Paragraph(label, text))
+    for i, (text, ms) in enumerate(zip(texts, markers)):
+        following = next((m[0] for m in markers[i + 1:] if m), None)
+        for j, marker in enumerate(ms):
+            nxt = ms[j + 1] if j + 1 < len(ms) else following
+            lvl = _level(marker, stack, nxt)
+            stack = stack[: lvl - 1] + [marker]
+        out.append(Paragraph(section + "".join(f"({m})" for m in stack), text))
     return out
 
 
