@@ -18,6 +18,7 @@ Usage (needs internet; runs in CI on GitHub's servers)::
 from __future__ import annotations
 
 import argparse
+import gzip
 import json
 import re
 import urllib.request
@@ -55,9 +56,14 @@ class Section:
 
 
 def _get(url: str, timeout: int = 120) -> bytes:
-    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    # The eCFR API answers HTTP 406 to requests that don't accept a compressed response.
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept-Encoding": "gzip"})
     with urllib.request.urlopen(req, timeout=timeout) as resp:  # noqa: S310 - fixed public host
-        return resp.read()
+        body = resp.read()
+        encoding = (resp.headers.get("Content-Encoding") or "").lower()
+    if encoding == "gzip" or body[:2] == b"\x1f\x8b":
+        body = gzip.decompress(body)
+    return body
 
 
 def latest_date(title: int = TITLE) -> str:
